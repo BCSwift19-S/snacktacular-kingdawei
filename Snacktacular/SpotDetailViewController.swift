@@ -39,18 +39,27 @@ class SpotDetailViewController: UIViewController {
         autocompleteController.delegate = self
         present(autocompleteController, animated: true, completion: nil)
     }
-    
-    
-    @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
-    }
-    
-    @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
+    func leaveViewController(){
         let isPresentingInAddMode = presentingViewController is UINavigationController
         if isPresentingInAddMode {
             dismiss(animated: true, completion: nil)
         } else {
             navigationController?.popViewController(animated: true)
         }
+    }
+    
+    @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
+        spot.saveData { success in
+            if success {
+                self.leaveViewController()
+            } else {
+                print("error")
+            }
+        }
+    }
+    
+    @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        leaveViewController()
     }
 }
 
