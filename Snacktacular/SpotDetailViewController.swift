@@ -55,23 +55,6 @@ class SpotDetailViewController: UIViewController {
         mapView.setCenter(spot.coordinate, animated: true)
     }
     
-    func leaveViewController () {
-        let isPresentingInAddMode = presentingViewController is UINavigationController
-        if isPresentingInAddMode {
-            dismiss(animated: true, completion: nil)
-        } else {
-            navigationController?.popViewController(animated: true)
-        }
-    }
-    
-    func leaveViewController () {
-        let isPresentingInAddMode = presentingViewController is UINavigationController
-        if isPresentingInAddMode {
-            dismiss(animated: true, completion: nil)
-        } else {
-            navigationController?.popViewController(animated: true)
-        }
-    
     @IBAction func photoButtonPressed(_ sender: UIButton) {
     }
     

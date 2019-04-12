@@ -19,6 +19,7 @@
 		7F63373C22506C5A0032CC12 /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F63373B22506C5A0032CC12 /* Spot.swift */; };
 		7F63373E22506D4F0032CC12 /* Spots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F63373D22506D4F0032CC12 /* Spots.swift */; };
 		7F633740225155120032CC12 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F63373F225155120032CC12 /* GoogleService-Info.plist */; };
+		7F98B76522603929004F0F0D /* Double+roundTo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F98B76422603929004F0F0D /* Double+roundTo.swift */; };
 		DF4F4B8FC3A412D025E015B8 /* Pods_Snacktacular.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5707C01125683B1D249A4576 /* Pods_Snacktacular.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +40,7 @@
 		7F63373B22506C5A0032CC12 /* Spot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
 		7F63373D22506D4F0032CC12 /* Spots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spots.swift; sourceTree = "<group>"; };
 		7F63373F225155120032CC12 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7F98B76422603929004F0F0D /* Double+roundTo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+roundTo.swift"; sourceTree = "<group>"; };
 		89C2E3D50D10F9ABDDBB92F4 /* Pods-Snacktacular.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snacktacular.release.xcconfig"; path = "Target Support Files/Pods-Snacktacular/Pods-Snacktacular.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,6 +93,7 @@
 				3E0F960B2065A17500AE450D /* SpotDetailViewController.swift */,
 				3E0F960D2065AB6400AE450D /* SpotReviewsTableViewCell.swift */,
 				3E0F960F2065AC1A00AE450D /* SpotPhotosCollectionViewCell.swift */,
+				7F98B76422603929004F0F0D /* Double+roundTo.swift */,
 				3E8390E3206597F600512DEA /* Main.storyboard */,
 				3E8390E6206597F600512DEA /* Assets.xcassets */,
 				3E8390E8206597F600512DEA /* LaunchScreen.storyboard */,
@@ -312,6 +315,7 @@
 				7F63373C22506C5A0032CC12 /* Spot.swift in Sources */,
 				3E8390E0206597F600512DEA /* AppDelegate.swift in Sources */,
 				7F63373E22506D4F0032CC12 /* Spots.swift in Sources */,
+				7F98B76522603929004F0F0D /* Double+roundTo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
