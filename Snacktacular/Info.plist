@@ -56,5 +56,7 @@
 	<string>Snacktacular needs to access yo place for reasonz</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Snacktacular needs to access yo place for reasonz</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>
