@@ -56,7 +56,9 @@
 	<string>Snacktacular needs to access yo place for reasonz</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Snacktacular needs to access yo place for reasonz</string>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>need access to ur camera</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>need access to ur photo lib</string>
 </dict>
 </plist>

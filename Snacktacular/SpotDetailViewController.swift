@@ -18,10 +18,15 @@ class SpotDetailViewController: UIViewController {
     @IBOutlet weak var cancelBarButton: UIBarButtonItem!
     
     var spot: Spot!
+    var reviews: Reviews!
+    var photos: Photos!
+
     let regionDistance: CLLocationDistance = 750 //750 meters (.5 miles)
     var locationManager: CLLocationManager!
     var currentLocation: CLLocation!
-    var reviews: Reviews!
+    var imagePicker = UIImagePickerController()
+    
+   
     
     
     override func viewDidLoad() {
@@ -34,6 +39,9 @@ class SpotDetailViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        imagePicker.delegate = self
         
         if spot == nil {
             spot = Spot()
@@ -50,6 +58,8 @@ class SpotDetailViewController: UIViewController {
             navigationController?.setToolbarHidden(true, animated: true)
         }
         reviews = Reviews()
+        photos = Photos()
+        
         
         let region = MKCoordinateRegion(center: spot.coordinate, latitudinalMeters: regionDistance, longitudinalMeters: regionDistance)
         mapView.setRegion(region, animated: true)
@@ -83,9 +93,28 @@ class SpotDetailViewController: UIViewController {
             print("Did not have a segue in SDVC prepare")
         }
     }
+
+    func cameraOrLibraryAlert(){
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cameraAction = UIAlertAction(title: "Camera", style: .default){ _ in
+            self.accessCamera()
+        }
+        
+        let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .default){ _ in
+            self.accessLibrary()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(cameraAction)
+        alertController.addAction(photoLibraryAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+    }
+
     @IBAction func textFieldEditingChanged(_ sender: UITextField) {
         saveBarButton.isEnabled = !(nameField.text == "")
     }
+
     
     @IBAction func textFieldReturnPressed(_ sender: UITextField) {
         sender.resignFirstResponder()
@@ -99,22 +128,32 @@ class SpotDetailViewController: UIViewController {
         alertController.addAction(alertAction)
         present(alertController, animated: true, completion: nil)
     }
-    
-    
     func updateUserInterface(){
         nameField.text = spot.name
         addressField.text = spot.address
-        updateMAp()
+        updateMap()
     }
-
     
-    func updateMAp(){
+    
+    func updateMap(){
         mapView.removeAnnotations(mapView.annotations)
         mapView.addAnnotation(spot)
         mapView.setCenter(spot.coordinate, animated: true)
     }
+    func leaveViewController(){
+        let isPresentingInAddMode = presentingViewController is UINavigationController
+        if isPresentingInAddMode {
+            dismiss(animated: true, completion: nil)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    
+    
     
     @IBAction func photoButtonPressed(_ sender: UIButton) {
+        cameraOrLibraryAlert()
     }
     
     @IBAction func reviewButtonPressed(_ sender: UIButton) {
@@ -127,14 +166,7 @@ class SpotDetailViewController: UIViewController {
         autocompleteController.delegate = self
         present(autocompleteController, animated: true, completion: nil)
     }
-    func leaveViewController(){
-        let isPresentingInAddMode = presentingViewController is UINavigationController
-        if isPresentingInAddMode {
-            dismiss(animated: true, completion: nil)
-        } else {
-            navigationController?.popViewController(animated: true)
-        }
-    }
+
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         spot.name = nameField.text!
@@ -250,6 +282,43 @@ extension SpotDetailViewController: UITableViewDelegate, UITableViewDataSource {
         cell.review = reviews.reviewArray[indexPath.row]
         return cell
     }
+}
+
+extension SpotDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return photos.photoArray.count
+    }
     
-    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! SpotPhotosCollectionViewCell
+        cell.photo = photos.photoArray[indexPath.row]
+        return cell
+    }
+
+}
+
+extension SpotDetailViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let photo = Photo()
+        photo.image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        photos.photoArray.append(photo)
+        dismiss(animated: true) {
+            self.collectionView.reloadData()
+        }
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    func accessLibrary(){
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
+    func accessCamera(){
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            imagePicker.sourceType = .camera
+            present(imagePicker, animated: true, completion: nil)
+        } else{
+            showAlert(title: "Camera not Available", message: "No camera on this device")
+        }
+    }
 }
